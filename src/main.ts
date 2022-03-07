@@ -3,7 +3,7 @@ import express from "express";
 import { errorHandler } from "./exceptions/handler/errorHandler";
 import { setupExceptions, exceptions } from "./exceptions";
 
-const setupServer = () => {
+const setupServer = (): void => {
   const app = express();
   setupExceptions();
 
@@ -14,7 +14,7 @@ const setupServer = () => {
   });
 
   app.use(errorHandler);
-  app.listen(3000)
+  app.listen(3000);
 };
 
 setupServer();

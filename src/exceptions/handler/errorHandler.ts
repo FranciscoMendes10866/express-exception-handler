@@ -16,6 +16,6 @@ export const errorHandler = (
   } else {
     res
       .status(500)
-      .send({ code: EErrorCodes.UnknownError, status: 500 } as ErrorStruct);
+      .send({ code: EErrorCodes.InternalError, status: 500 } as ErrorStruct);
   }
 };

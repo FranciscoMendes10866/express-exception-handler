@@ -1,8 +1,6 @@
 export enum EErrorCodes {
-  Unauthenticated = "Unauthenticated",
   NotFound = "NotFound",
-  MaximumAllowedGrade = "MaximumAllowedGrade",
-  AsyncError = "AsyncError",
-  UnknownError = "UnknownError",
+  InternalError = "InternalError",
   Forbidden = "Forbidden",
+  Conflicts = "Conflicts",
 }

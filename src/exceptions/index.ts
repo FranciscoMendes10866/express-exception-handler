@@ -1,37 +1,28 @@
 import { EErrorCodes } from "../types/errors";
 
+type IStatusCode = {
+  [key in EErrorCodes]: number;
+}
+
+const StatusCodes: IStatusCode = {
+    NotFound : 404,
+    InternalError : 500,
+    Forbidden : 403,
+    Conflicts : 409,
+}
+
 export class ErrorException extends Error {
   public status: number | undefined = undefined;
   public metaData: any = null;
   constructor(
-    code: EErrorCodes = EErrorCodes.UnknownError,
+    code: EErrorCodes = EErrorCodes.InternalError,
     metaData: any = null
   ) {
     super(code);
     Object.setPrototypeOf(this, new.target.prototype);
-    this.name = EErrorCodes.UnknownError;
-    this.status = 500;
+    this.name = code;
+    this.status = StatusCodes[code];
     this.metaData = metaData;
-    switch (code) {
-      case EErrorCodes.Unauthenticated:
-        this.status = 401;
-        break;
-      case EErrorCodes.MaximumAllowedGrade:
-        this.status = 400;
-        break;
-      case EErrorCodes.AsyncError:
-        this.status = 400;
-        break;
-      case EErrorCodes.NotFound:
-        this.status = 404;
-        break;
-      case EErrorCodes.Forbidden:
-        this.status = 409;
-        break;
-      default:
-        this.status = 500;
-        break;
-    }
   }
 }
 
@@ -41,7 +32,7 @@ type IExceptions = {
 
 export let exceptions: IExceptions;
 
-export const setupExceptions = () => {
+export const setupExceptions = (): void => {
   let list: IExceptions = {} as IExceptions;
 
   for (const exception of Object.values(EErrorCodes)) {
